@@ -6,7 +6,7 @@ ADD . /app
 
 # Warmup maven cache
 #
-RUN mvn verify dependency:copy-dependencies -DskipTests && rm -Rf /app && mkdir /app
+RUN mvn -Pprecompile verify dependency:copy-dependencies dependency:go-offline -DskipTests && rm -Rf /app && mkdir /app
 
 # Set run environment
 #
@@ -23,4 +23,4 @@ ONBUILD ADD . /app
 # (This command being last, a change in the code triggers a
 # minimal rebuild)
 #
-ONBUILD RUN mvn verify dependency:copy-dependencies -Dmaven.test.skip=true -DincludeScope=compile
+ONBUILD RUN mvn verify dependency:copy-dependencies -Dmaven.test.skip=true -DincludeScope=compile && mvn exec:java -Dexec.mainClass=net.codestory.http.misc.PreCompile -Dexec.cleanupDaemonThreads=false
