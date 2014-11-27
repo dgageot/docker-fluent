@@ -20,8 +20,6 @@
     </properties>
 
     <build>
-        <finalName>web</finalName>
-
         <plugins>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
