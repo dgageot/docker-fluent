@@ -7,6 +7,7 @@ ADD . /app
 # Warmup maven cache
 #
 RUN mvn -Pprecompile verify dependency:copy-dependencies dependency:go-offline -DskipTests \
+  && mvn exec:java -Dexec.mainClass=net.codestory.http.misc.PreCompile -Dexec.cleanupDaemonThreads=false \
 	&& rm -Rf /app \
 	&& mkdir /app
 
